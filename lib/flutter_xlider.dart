@@ -420,6 +420,7 @@ class _FlutterSliderState extends State<FlutterSlider>
       case FlutterSliderTooltipDirection.right:
         animationFinish = Offset(1, 0);
         break;
+      default:
     }
 
     if (__isInitCall) {
@@ -469,8 +470,8 @@ class _FlutterSliderState extends State<FlutterSlider>
     ].reduce(max);
 
     FlutterSliderHatchMark hatchMark = FlutterSliderHatchMark();
-    hatchMark.disabled = widget.hatchMark!.disabled ?? false;
-    hatchMark.density = widget.hatchMark!.density ?? 1;
+    hatchMark.disabled = widget.hatchMark!.disabled;
+    hatchMark.density = widget.hatchMark!.density;
     hatchMark.linesDistanceFromTrackBar =
         widget.hatchMark!.linesDistanceFromTrackBar ?? 0;
     hatchMark.labelsDistanceFromTrackBar =
@@ -488,8 +489,7 @@ class _FlutterSliderState extends State<FlutterSlider>
     hatchMark.labelBox = widget.hatchMark!.labelBox ??
         FlutterSliderSizedBox(height: 50, width: 50);
     hatchMark.labels = widget.hatchMark!.labels ?? null;
-    hatchMark.linesAlignment = widget.hatchMark!.linesAlignment ??
-        FlutterSliderHatchMarkAlignment.right;
+    hatchMark.linesAlignment = widget.hatchMark!.linesAlignment;
     hatchMark.displayLines = widget.hatchMark!.displayLines ?? false;
 
     if (hatchMark.displayLines!) {
@@ -864,7 +864,7 @@ class _FlutterSliderState extends State<FlutterSlider>
             ? Icons.chevron_left
             : Icons.expand_less,
         color: Colors.black45);
-    inputRightHandler.disabled ??= false;
+    // inputRightHandler.disabled;
     inputRightHandler.decoration ??= BoxDecoration(boxShadow: [
       BoxShadow(
           color: Colors.black26,
@@ -1608,13 +1608,13 @@ class _FlutterSliderState extends State<FlutterSlider>
             axis: Axis.horizontal,
             child: Stack(
               overflow: Overflow.visible,
-              children: <Widget?>[
+              children: <Widget>[
                 _tooltip(
                     side: 'right',
                     value: _outputUpperValue,
                     opacity: _rightTooltipOpacity,
                     animation: _rightTooltipAnimation),
-                rightHandler,
+                rightHandler ?? Container(),
               ] as List<Widget>,
             ),
             feedback: Container(
@@ -1731,7 +1731,7 @@ class _FlutterSliderState extends State<FlutterSlider>
   }
 
   drawHandlers() {
-    List<Positioned?> items = []..addAll([
+    List<Positioned> items = []..addAll([
         Function.apply(_inactiveTrack, []),
         Function.apply(_centralWidget, []),
         Function.apply(_activeTrack, []),
@@ -2050,6 +2050,7 @@ class _FlutterSliderState extends State<FlutterSlider>
         top = 0;
         bottom = 0;
         break;
+      default:
     }
 
     if (_tooltipData.positionOffset != null) {
@@ -2345,7 +2346,7 @@ class _MakeHandler extends StatelessWidget {
       handler.child ??= Icon(hIcon, color: Colors.black45);
     }
 
-    handler.disabled ??= false;
+    // handler.disabled ??= false;
     handler.decoration ??= BoxDecoration(boxShadow: [
       BoxShadow(
           color: Colors.black26,
@@ -2371,7 +2372,7 @@ class _MakeHandler extends StatelessWidget {
             child: ScaleTransition(
               scale: animation as Animation<double>,
               child: Opacity(
-                opacity: handler.opacity ?? 1,
+                opacity: handler.opacity,
                 child: Container(
                   alignment: Alignment.center,
                   foregroundDecoration: handler.foregroundDecoration,
